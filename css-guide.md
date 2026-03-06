@@ -1,1652 +1,1727 @@
-Here’s a **start-to-end Git guide** with **commands, concepts, and real project workflow**.
+Below is a **start-to-end CSS guide** with concepts, syntax, examples, and **real project implementations**.
 
 ---
 
-# Git: Full Detailed Guide
+# 1) What is CSS?
 
-## 1. What is Git?
+**CSS (Cascading Style Sheets)** is used to style HTML.
 
-**Git** is a **version control system**.
+HTML gives structure:
 
-It helps you:
+```html
+<h1>Hello</h1>
+<p>This is a paragraph.</p>
+```
 
-* track changes in code
-* go back to old versions
-* work safely without losing files
-* collaborate with teams
-* manage different features using branches
+CSS gives design:
 
-### Simple idea
+```css
+h1 {
+  color: blue;
+}
 
-Think of Git like a **time machine for your project**.
+p {
+  font-size: 18px;
+}
+```
 
-Without Git:
+So:
 
-* you make changes
-* something breaks
-* you do not know what changed
-
-With Git:
-
-* every important change is saved as a **commit**
-* you can compare, restore, branch, and merge
+* **HTML** = structure
+* **CSS** = style
+* **JavaScript** = behavior
 
 ---
 
-# 2. Git vs GitHub
+# 2) Ways to add CSS
 
-Many beginners confuse these.
+## A. Inline CSS
 
-## Git
+```html
+<h1 style="color:red;">Hello</h1>
+```
 
-A tool installed on your computer.
+## B. Internal CSS
 
-## GitHub
+```html
+<head>
+  <style>
+    h1 {
+      color: green;
+    }
+  </style>
+</head>
+```
 
-A website/service where you store Git repositories online.
+## C. External CSS
 
-Also similar:
+```html
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+```
 
-* GitLab
-* Bitbucket
+`style.css`
 
-### Example
+```css
+h1 {
+  color: purple;
+}
+```
 
-* **Git** = engine
-* **GitHub** = garage/cloud storage
+**Best practice:** use **external CSS** for real projects.
 
 ---
 
-# 3. Basic Git Terms
-
-## Repository (repo)
-
-A project tracked by Git.
-
-## Commit
-
-A saved snapshot of your project.
-
-## Branch
-
-A separate line of development.
-
-## Merge
-
-Combining branches.
-
-## Clone
-
-Downloading a remote repo to your computer.
-
-## Push
-
-Uploading local commits to remote.
-
-## Pull
-
-Downloading updates from remote and applying them.
-
-## Staging Area
-
-A place where you prepare files before commit.
-
----
-
-# 4. Git Installation
-
-## Check if Git is installed
-
-```bash
-git --version
-```
-
-If installed, output may look like:
-
-```bash
-git version 2.x.x
-```
-
-## Configure Git for the first time
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your@email.com"
-```
-
-Check config:
-
-```bash
-git config --list
-```
-
----
-
-# 5. How Git Works Internally
-
-Git mainly has 3 areas:
-
-## 1. Working Directory
-
-Your normal project files.
-
-## 2. Staging Area
-
-Files prepared for commit.
-
-## 3. Repository
-
-Committed history.
-
-### Flow
-
-```text
-Working Directory -> Staging Area -> Repository
-```
-
-### Commands involved
-
-* modify file
-* `git add` -> move to staging
-* `git commit` -> save permanently
-
----
-
-# 6. Starting a Git Project
-
-## Option A: Create a new repository
-
-```bash
-mkdir my-project
-cd my-project
-git init
-```
-
-This creates a hidden `.git` folder.
-
-## Option B: Clone an existing repository
-
-```bash
-git clone https://github.com/user/repo.git
-cd repo
-```
-
----
-
-# 7. Your First Git Project
-
-Let’s make a simple project.
-
-## Create project
-
-```bash
-mkdir git-demo
-cd git-demo
-git init
-```
-
-## Create a file
-
-```bash
-echo "# Git Demo" > README.md
-```
-
-## Check status
-
-```bash
-git status
-```
-
-You may see:
-
-```bash
-Untracked files:
-  README.md
-```
-
-### Meaning
-
-Git sees the file, but it is not tracked yet.
-
-## Add file to staging
-
-```bash
-git add README.md
-```
-
-## Commit it
-
-```bash
-git commit -m "Initial commit with README"
-```
-
-Now Git has saved your first snapshot.
-
----
-
-# 8. `git status` — Most Important Command
-
-This is one of the most used commands.
-
-```bash
-git status
-```
-
-It shows:
-
-* current branch
-* modified files
-* staged files
-* untracked files
-
-Use it constantly.
-
----
-
-# 9. Tracking Files
-
-## Add one file
-
-```bash
-git add index.html
-```
-
-## Add multiple files
-
-```bash
-git add index.html style.css app.js
-```
-
-## Add all files
-
-```bash
-git add .
-```
-
-Be careful with `git add .` because it stages many files.
-
----
-
-# 10. Commiting Changes
-
-## Basic commit
-
-```bash
-git commit -m "Add homepage structure"
-```
-
-A good commit message should explain **what changed**.
-
-### Good examples
-
-```bash
-git commit -m "Add login form validation"
-git commit -m "Fix navbar mobile alignment"
-git commit -m "Refactor product filtering logic"
-```
-
-### Bad example
-
-```bash
-git commit -m "update"
-```
-
----
-
-# 11. View Commit History
-
-## Show history
-
-```bash
-git log
-```
-
-## Short version
-
-```bash
-git log --oneline
+# 3) CSS Syntax
+
+```css
+selector {
+  property: value;
+}
 ```
 
 Example:
 
-```bash
-a1b2c3d Add login page
-d4e5f6g Add CSS for navbar
-h7i8j9k Initial commit
+```css
+p {
+  color: black;
+  font-size: 16px;
+}
+```
+
+* `p` = selector
+* `color`, `font-size` = properties
+* `black`, `16px` = values
+
+---
+
+# 4) Selectors
+
+Selectors tell CSS **which element to style**.
+
+## A. Element Selector
+
+```css
+h1 {
+  color: red;
+}
+```
+
+## B. Class Selector
+
+```html
+<p class="text">Hello</p>
+```
+
+```css
+.text {
+  color: blue;
+}
+```
+
+## C. ID Selector
+
+```html
+<div id="box"></div>
+```
+
+```css
+#box {
+  width: 200px;
+}
+```
+
+## D. Universal Selector
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+}
+```
+
+## E. Group Selector
+
+```css
+h1, h2, p {
+  font-family: Arial, sans-serif;
+}
+```
+
+## F. Descendant Selector
+
+```html
+<div class="card">
+  <p>Text</p>
+</div>
+```
+
+```css
+.card p {
+  color: green;
+}
+```
+
+## G. Child Selector
+
+```css
+.card > p {
+  color: orange;
+}
+```
+
+## H. Attribute Selector
+
+```html
+<input type="text">
+```
+
+```css
+input[type="text"] {
+  border: 1px solid gray;
+}
+```
+
+## I. Pseudo-class Selector
+
+```css
+button:hover {
+  background: black;
+  color: white;
+}
+```
+
+## J. Pseudo-element Selector
+
+```css
+p::first-letter {
+  font-size: 32px;
+}
 ```
 
 ---
 
-# 12. See File Changes
+# 5) Colors and Units
 
-## Show unstaged changes
+## Colors
 
-```bash
-git diff
-```
-
-## Show staged changes
-
-```bash
-git diff --staged
-```
-
-This helps you see what exactly changed before committing.
-
----
-
-# 13. Rename and Delete Files
-
-## Rename file
-
-```bash
-git mv oldname.js newname.js
-```
-
-## Delete file
-
-```bash
-git rm file.txt
-```
-
-Then commit:
-
-```bash
-git commit -m "Rename utility file"
-```
-
----
-
-# 14. Ignore Files with `.gitignore`
-
-Some files should not go to Git.
-
-Examples:
-
-* `node_modules/`
-* `.env`
-* build files
-* logs
-* temporary files
-
-## Create `.gitignore`
-
-```bash
-touch .gitignore
-```
-
-Example content:
-
-```gitignore
-node_modules/
-.env
-dist/
-*.log
-```
-
-Then add and commit:
-
-```bash
-git add .gitignore
-git commit -m "Add gitignore"
-```
-
----
-
-# 15. Branching
-
-Branches are one of Git’s strongest features.
-
-## Why branches?
-
-You can work on a new feature without touching the stable main code.
-
-## See branches
-
-```bash
-git branch
-```
-
-## Create branch
-
-```bash
-git branch feature-login
-```
-
-## Switch branch
-
-```bash
-git checkout feature-login
-```
-
-## Create and switch at once
-
-```bash
-git checkout -b feature-login
-```
-
-Modern Git also supports:
-
-```bash
-git switch -c feature-login
-```
-
----
-
-# 16. Real Branch Example
-
-Suppose your main project has:
-
-* homepage
-* navbar
-* footer
-
-Now you want login feature.
-
-## Create branch
-
-```bash
-git checkout -b feature-login
-```
-
-## Make files
-
-```bash
-touch login.html login.css login.js
-git add .
-git commit -m "Add initial login page files"
-```
-
-## More changes
-
-```bash
-git add .
-git commit -m "Implement login validation"
-```
-
-Now your `main` branch is still clean.
-
----
-
-# 17. Merge Branches
-
-After feature is ready, merge it into main.
-
-## Go to main
-
-```bash
-git checkout main
-```
-
-## Merge
-
-```bash
-git merge feature-login
-```
-
-If there are no conflicts, Git combines changes automatically.
-
----
-
-# 18. Merge Conflicts
-
-A conflict happens when two branches change the same part of a file.
-
-Example conflict markers:
-
-```txt
-<<<<<<< HEAD
-color: blue;
-=======
+```css
 color: red;
->>>>>>> feature-login
+color: #ff0000;
+color: rgb(255, 0, 0);
+color: rgba(255, 0, 0, 0.5);
+color: hsl(0, 100%, 50%);
 ```
 
-### How to fix
+## Common Units
 
-1. Open file
-2. Decide final code
-3. Remove conflict markers
-4. Save file
-5. Stage and commit
-
-```bash
-git add style.css
-git commit -m "Resolve merge conflict in style"
-```
-
----
-
-# 19. `git checkout`, `git switch`, `git restore`
-
-These are related but different.
-
-## Switch branch
-
-```bash
-git switch main
-```
-
-## Create and switch branch
-
-```bash
-git switch -c feature-cart
-```
-
-## Restore file to last commit
-
-```bash
-git restore app.js
-```
-
-## Unstage file
-
-```bash
-git restore --staged app.js
-```
-
-Older Git often used:
-
-```bash
-git checkout main
-```
-
----
-
-# 20. Undoing Changes
-
-Very important for real work.
-
-## Undo unstaged changes
-
-```bash
-git restore file.txt
-```
-
-## Unstage a staged file
-
-```bash
-git restore --staged file.txt
-```
-
-## Amend last commit
-
-```bash
-git commit --amend -m "Better commit message"
-```
-
-## Reset commit but keep changes
-
-```bash
-git reset --soft HEAD~1
-```
-
-## Reset commit and unstage changes
-
-```bash
-git reset --mixed HEAD~1
-```
-
-## Reset commit and delete changes
-
-```bash
-git reset --hard HEAD~1
-```
-
-Be careful with:
-
-```bash
-git reset --hard
-```
-
-It can permanently remove uncommitted work.
-
----
-
-# 21. Git Stash
-
-Sometimes you are working, but suddenly need to switch tasks.
-
-## Save unfinished work temporarily
-
-```bash
-git stash
-```
-
-## See stash list
-
-```bash
-git stash list
-```
-
-## Restore last stash
-
-```bash
-git stash pop
-```
-
-## Restore without deleting from stash list
-
-```bash
-git stash apply
-```
+* `px` = fixed size
+* `em` = relative to parent font-size
+* `rem` = relative to root font-size
+* `%` = percentage
+* `vw`, `vh` = viewport width/height
 
 Example:
 
-```bash
-git stash
-git switch main
-# fix urgent bug
-git switch feature-login
-git stash pop
+```css
+h1 {
+  font-size: 2rem;
+}
+
+.container {
+  width: 80%;
+  height: 100vh;
+}
 ```
 
 ---
 
-# 22. Remote Repositories
+# 6) Text and Font Styling
 
-A remote repo is an online version of your project.
-
-## Add remote
-
-```bash
-git remote add origin https://github.com/user/repo.git
+```css
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+}
 ```
 
-## See remotes
+## Useful properties
 
-```bash
-git remote -v
-```
+```css
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: underline;
+  letter-spacing: 2px;
+}
 
----
-
-# 23. Push Code to GitHub
-
-After linking remote:
-
-## Push first time
-
-```bash
-git push -u origin main
-```
-
-`-u` sets upstream, so later you can just use:
-
-```bash
-git push
+p {
+  line-height: 1.8;
+}
 ```
 
 ---
 
-# 24. Pull and Fetch
+# 7) Backgrounds
 
-## Pull
-
-Downloads remote changes and merges them:
-
-```bash
-git pull
+```css
+.box {
+  background-color: lightblue;
+  background-image: url("image.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 ```
 
-## Fetch
+Shortcut:
 
-Downloads remote changes but does not merge:
-
-```bash
-git fetch
+```css
+.hero {
+  background: url("bg.jpg") center/cover no-repeat;
+}
 ```
-
-Then you can inspect before merging.
 
 ---
 
-# 25. Clone a Repository
+# 8) Border, Radius, Shadow
 
-```bash
-git clone https://github.com/user/project.git
+```css
+.card {
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 ```
-
-This downloads the entire project with history.
 
 ---
 
-# 26. Rebase
+# 9) Width, Height, Overflow
 
-Rebase is another way to integrate changes.
+```css
+.box {
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+}
+```
 
-## Merge vs Rebase
+Values of overflow:
 
-### Merge
+* `visible`
+* `hidden`
+* `scroll`
+* `auto`
 
-Creates a merge commit.
+---
 
-### Rebase
+# 10) Margin and Padding
 
-Replays commits on top of another branch for cleaner history.
+```css
+.box {
+  margin: 20px;
+  padding: 15px;
+}
+```
+
+Shorthand:
+
+```css
+margin: 10px 20px 30px 40px; /* top right bottom left */
+padding: 10px 20px; /* top-bottom right-left */
+```
+
+---
+
+# 11) The Box Model
+
+Every HTML element is like a box:
+
+* content
+* padding
+* border
+* margin
 
 Example:
 
-```bash
-git checkout feature-login
-git rebase main
+```css
+.box {
+  width: 200px;
+  padding: 20px;
+  border: 5px solid black;
+  margin: 10px;
+}
 ```
 
-Then later:
+By default, total size becomes:
+`200 + padding + border`
 
-```bash
-git checkout main
-git merge feature-login
+## `box-sizing`
+
+Best practice:
+
+```css
+* {
+  box-sizing: border-box;
+}
 ```
 
-### Important
-
-Do not casually rebase public shared commits unless you understand the effect.
+Then width includes padding and border.
 
 ---
 
-# 27. Tags
+# 12) Display Property
 
-Tags mark important versions, like releases.
+## Block
 
-## Create tag
+Takes full width.
 
-```bash
-git tag v1.0
+```css
+div {
+  display: block;
+}
 ```
 
-## Push tags
+## Inline
 
-```bash
-git push origin v1.0
+Takes only needed width.
+
+```css
+span {
+  display: inline;
+}
 ```
 
-## Push all tags
+## Inline-block
 
-```bash
-git push --tags
+```css
+a {
+  display: inline-block;
+}
+```
+
+## None
+
+```css
+.hidden {
+  display: none;
+}
 ```
 
 ---
 
-# 28. GitHub Pull Request Workflow
+# 13) Positioning
 
-In team projects:
+## Static
 
-1. create branch
-2. make changes
-3. commit
-4. push branch
-5. open Pull Request on GitHub
-6. review
-7. merge into main
+Default.
 
-Commands:
+## Relative
 
-```bash
-git checkout -b feature-payment
-git add .
-git commit -m "Add payment integration UI"
-git push -u origin feature-payment
+```css
+.box {
+  position: relative;
+  top: 20px;
+  left: 10px;
+}
 ```
 
-Then create PR on GitHub.
+## Absolute
+
+```css
+.parent {
+  position: relative;
+}
+
+.child {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+```
+
+## Fixed
+
+```css
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+```
+
+## Sticky
+
+```css
+.sidebar {
+  position: sticky;
+  top: 20px;
+}
+```
 
 ---
 
-# 29. Real Project Implementation 1: Static Website
+# 14) z-index
 
-Let’s do a real mini workflow.
+Controls stacking order.
 
-## Project structure
+```css
+.modal {
+  position: fixed;
+  z-index: 1000;
+}
+```
+
+Higher `z-index` appears on top.
+
+---
+
+# 15) Flexbox
+
+Used for **1-dimensional layouts**: row or column.
+
+## Parent properties
+
+```css
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+```
+
+## Example
+
+```html
+<div class="container">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+</div>
+```
+
+```css
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.item {
+  background: lightcoral;
+  padding: 20px;
+}
+```
+
+## Important flex properties
+
+### On parent
+
+* `display: flex`
+* `flex-direction`
+* `justify-content`
+* `align-items`
+* `flex-wrap`
+* `gap`
+
+### On child
+
+* `flex`
+* `align-self`
+* `order`
+
+Example:
+
+```css
+.item {
+  flex: 1;
+}
+```
+
+---
+
+# 16) CSS Grid
+
+Used for **2-dimensional layouts**.
+
+```html
+<div class="grid">
+  <div class="box">1</div>
+  <div class="box">2</div>
+  <div class="box">3</div>
+  <div class="box">4</div>
+</div>
+```
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.box {
+  background: lightblue;
+  padding: 20px;
+}
+```
+
+## More advanced grid
+
+```css
+.grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+}
+```
+
+---
+
+# 17) Responsive Design
+
+Responsive means the page adapts to different screens.
+
+## Media Query
+
+```css
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}
+```
+
+## Example
+
+```css
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+---
+
+# 18) Pseudo-classes and Pseudo-elements
+
+## Pseudo-classes
+
+State-based styling.
+
+```css
+a:hover {
+  color: red;
+}
+
+input:focus {
+  border-color: blue;
+}
+
+li:first-child {
+  color: green;
+}
+```
+
+## Pseudo-elements
+
+Style part of an element.
+
+```css
+p::before {
+  content: "👉 ";
+}
+
+p::after {
+  content: " ✔";
+}
+```
+
+---
+
+# 19) Forms Styling
+
+```html
+<form class="form">
+  <input type="text" placeholder="Your name">
+  <input type="email" placeholder="Your email">
+  <button type="submit">Submit</button>
+</form>
+```
+
+```css
+.form {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: royalblue;
+}
+
+.form button {
+  padding: 12px;
+  border: none;
+  background: royalblue;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: darkblue;
+}
+```
+
+---
+
+# 20) Transitions
+
+Smooth change between states.
+
+```css
+button {
+  background: blue;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: black;
+  transform: scale(1.05);
+}
+```
+
+---
+
+# 21) Transforms
+
+```css
+.box:hover {
+  transform: translateX(20px);
+  transform: rotate(10deg);
+  transform: scale(1.1);
+}
+```
+
+Common transform functions:
+
+* `translate()`
+* `rotate()`
+* `scale()`
+* `skew()`
+
+---
+
+# 22) Animations
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  background: red;
+  animation: move 2s infinite alternate;
+}
+
+@keyframes move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(200px);
+  }
+}
+```
+
+---
+
+# 23) CSS Variables
+
+Reusable values.
+
+```css
+:root {
+  --main-color: #2563eb;
+  --radius: 12px;
+}
+
+button {
+  background: var(--main-color);
+  border-radius: var(--radius);
+}
+```
+
+Very useful for real projects.
+
+---
+
+# 24) Specificity
+
+CSS decides which rule wins.
+
+Example:
+
+```css
+p {
+  color: blue;
+}
+
+.text {
+  color: green;
+}
+
+#main {
+  color: red;
+}
+```
+
+Priority generally:
+
+* inline style
+* ID
+* class / pseudo-class / attribute
+* element
+
+So `#main` usually beats `.text`, and `.text` beats `p`.
+
+---
+
+# 25) Inheritance
+
+Some properties pass from parent to child.
+
+Example:
+
+```css
+body {
+  color: #333;
+  font-family: Arial;
+}
+```
+
+Child elements inherit `color` and `font-family` unless overridden.
+
+---
+
+# 26) Common Reset / Base CSS
+
+A common starting point:
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background: #f8f9fa;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+```
+
+---
+
+# 27) Real Project 1: Responsive Navbar
+
+## HTML
+
+```html
+<header class="navbar">
+  <div class="logo">MySite</div>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+```
+
+## CSS
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background: #111827;
+  color: white;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #60a5fa;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+```
+
+### What this project teaches
+
+* flexbox
+* responsive layout
+* hover effects
+* spacing
+* media queries
+
+---
+
+# 28) Real Project 2: Product Card
+
+## HTML
+
+```html
+<div class="card">
+  <img src="https://via.placeholder.com/300x200" alt="Product">
+  <div class="card-content">
+    <h2>Wireless Headphone</h2>
+    <p>High quality sound with modern design.</p>
+    <button>Buy Now</button>
+  </div>
+</div>
+```
+
+## CSS
+
+```css
+body {
+  background: #f3f4f6;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+}
+
+.card {
+  width: 320px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+}
+
+.card img {
+  width: 100%;
+  display: block;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-content h2 {
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.card-content button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card-content button:hover {
+  background: #1d4ed8;
+}
+```
+
+### What this project teaches
+
+* card UI
+* shadows
+* border-radius
+* hover animation
+* button styling
+
+---
+
+# 29) Real Project 3: Landing Page Hero Section
+
+## HTML
+
+```html
+<section class="hero">
+  <div class="hero-content">
+    <h1>Build Modern Websites</h1>
+    <p>Learn HTML, CSS, and JavaScript by building real projects.</p>
+    <a href="#" class="btn">Get Started</a>
+  </div>
+</section>
+```
+
+## CSS
+
+```css
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+              url("https://via.placeholder.com/1200x800") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 24px;
+}
+
+.btn {
+  display: inline-block;
+  background: #2563eb;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
+```
+
+### What this project teaches
+
+* full-screen sections
+* background overlay
+* responsive text
+* CTA button
+* centering with flexbox
+
+---
+
+# 30) Real Project 4: Dashboard Layout with Grid
+
+## HTML
+
+```html
+<div class="dashboard">
+  <aside class="sidebar">Sidebar</aside>
+  <header class="header">Header</header>
+  <main class="main">Main Content</main>
+  <section class="extra">Extra Panel</section>
+</div>
+```
+
+## CSS
+
+```css
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr 300px;
+  grid-template-rows: 70px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  grid-row: 1 / 3;
+  background: #111827;
+  color: white;
+  padding: 20px;
+}
+
+.header {
+  grid-column: 2 / 4;
+  background: #f9fafb;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.main {
+  background: #ffffff;
+  padding: 20px;
+}
+
+.extra {
+  background: #f3f4f6;
+  padding: 20px;
+  border-left: 1px solid #ddd;
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .sidebar,
+  .header,
+  .main,
+  .extra {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+```
+
+### What this project teaches
+
+* CSS Grid
+* dashboard layout
+* responsive transformation
+* sidebar + header structure
+
+---
+
+# 31) Real Project 5: Login Form
+
+## HTML
+
+```html
+<div class="login-wrapper">
+  <form class="login-form">
+    <h2>Login</h2>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button type="submit">Sign In</button>
+  </form>
+</div>
+```
+
+## CSS
+
+```css
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 380px;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form h2 {
+  text-align: center;
+}
+
+.login-form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.login-form button {
+  padding: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background: #1d4ed8;
+}
+```
+
+---
+
+# 32) CSS Architecture for Real Projects
+
+As projects grow, CSS can become messy. Organize it.
+
+## Common folder idea
 
 ```text
-portfolio-site/
+project/
   index.html
-  style.css
-  script.js
-  .gitignore
+  css/
+    style.css
+    reset.css
+    layout.css
+    components.css
 ```
 
-## Start
+## Example structure inside one file
 
-```bash
-mkdir portfolio-site
-cd portfolio-site
-git init
-touch index.html style.css script.js
-```
-
-## Initial code
-
-```bash
-git add .
-git commit -m "Initial project setup"
-```
-
-## Add homepage
-
-Edit `index.html`, `style.css`
-
-```bash
-git add .
-git commit -m "Build homepage hero section"
-```
-
-## Add navbar in new branch
-
-```bash
-git checkout -b feature-navbar
-```
-
-Edit files.
-
-```bash
-git add .
-git commit -m "Add responsive navbar"
-```
-
-## Add contact section
-
-```bash
-git add .
-git commit -m "Add contact section"
-```
-
-## Merge into main
-
-```bash
-git checkout main
-git merge feature-navbar
-```
-
-## Connect to GitHub
-
-```bash
-git remote add origin https://github.com/username/portfolio-site.git
-git push -u origin main
-```
-
-This is a real beginner workflow.
-
----
-
-# 30. Real Project Implementation 2: Node.js App
-
-## Create project
-
-```bash
-mkdir task-api
-cd task-api
-git init
-npm init -y
-```
-
-## Install packages
-
-```bash
-npm install express
-npm install -D nodemon
-```
-
-## Add `.gitignore`
-
-```gitignore
-node_modules/
-.env
-```
-
-## Stage and commit
-
-```bash
-git add .
-git commit -m "Initialize Node.js Express project"
-```
-
-## Create feature branch
-
-```bash
-git checkout -b feature-routes
-```
-
-Create files:
-
-* `server.js`
-* `routes/tasks.js`
-
-Commit:
-
-```bash
-git add .
-git commit -m "Add task routes"
-```
-
-## Add middleware
-
-```bash
-git add .
-git commit -m "Add JSON middleware and error handler"
-```
-
-## Merge feature
-
-```bash
-git checkout main
-git merge feature-routes
-```
-
-## Push to GitHub
-
-```bash
-git remote add origin https://github.com/username/task-api.git
-git push -u origin main
+```css
+/* 1. Reset */
+/* 2. Variables */
+/* 3. Global styles */
+/* 4. Layout */
+/* 5. Components */
+/* 6. Utilities */
+/* 7. Media queries */
 ```
 
 ---
 
-# 31. Real Project Implementation 3: Team Workflow
-
-Suppose 3 developers work on an e-commerce app.
-
-## Branch strategy
-
-* `main` = production-ready
-* `develop` = integration branch
-* `feature/cart`
-* `feature/auth`
-* `bugfix/navbar`
-
-## Example flow
-
-### Create develop branch
-
-```bash
-git checkout -b develop
-git push -u origin develop
-```
-
-### Developer A
-
-```bash
-git checkout -b feature/auth develop
-```
-
-Work, then:
-
-```bash
-git add .
-git commit -m "Implement login form UI"
-git push -u origin feature/auth
-```
-
-### Developer B
-
-```bash
-git checkout -b feature/cart develop
-git add .
-git commit -m "Add cart state management"
-git push -u origin feature/cart
-```
-
-Then each opens pull request into `develop`.
-
-After testing:
-
-* merge `develop` into `main`
-
----
-
-# 32. Useful Git Commands Table
-
-## Basic commands
-
-```bash
-git init
-git clone <url>
-git status
-git add <file>
-git add .
-git commit -m "message"
-git log
-git diff
-```
-
-## Branch commands
-
-```bash
-git branch
-git branch <name>
-git checkout <branch>
-git checkout -b <name>
-git switch <branch>
-git switch -c <name>
-git merge <branch>
-```
-
-## Remote commands
-
-```bash
-git remote -v
-git remote add origin <url>
-git push
-git pull
-git fetch
-```
-
-## Undo commands
-
-```bash
-git restore <file>
-git restore --staged <file>
-git reset --soft HEAD~1
-git reset --hard HEAD~1
-git commit --amend
-git stash
-git stash pop
-```
-
----
-
-# 33. Best Commit Message Style
-
-A strong commit message is:
-
-* clear
-* short
-* action-based
-
-Examples:
-
-```bash
-git commit -m "Add user registration page"
-git commit -m "Fix product filter bug"
-git commit -m "Refactor payment validation logic"
-```
-
----
-
-# 34. Common Beginner Mistakes
-
-## 1. Forgetting `.gitignore`
-
-Then `node_modules` or secret files get committed.
-
-## 2. Using `git add .` blindly
-
-You may stage unwanted files.
-
-## 3. Writing bad commit messages
-
-Like:
-
-```bash
-git commit -m "done"
-```
-
-## 4. Working directly on `main`
-
-Better to use feature branches.
-
-## 5. Using `git reset --hard` carelessly
-
-Can delete work permanently.
-
-## 6. Pulling without understanding conflicts
-
-Always check `git status` and `git diff`.
-
----
-
-# 35. Recommended Workflow for Personal Projects
-
-For your own project:
-
-```text
-main
- ├── feature-ui
- ├── feature-auth
- ├── feature-api
- └── bugfix-navbar
-```
-
-Flow:
-
-1. create branch from main
-2. work on one feature
-3. commit regularly
-4. merge when finished
-
-Commands:
-
-```bash
-git checkout main
-git pull
-git checkout -b feature-auth
-# work
-git add .
-git commit -m "Add login form"
-git commit -m "Add password validation"
-git checkout main
-git merge feature-auth
-git push
-```
-
----
-
-# 36. Recommended Workflow for Deployment Projects
-
-Example:
-
-* `main` = live production
-* `develop` = testing area
-* feature branches = new work
-
-This is common in real companies.
-
----
-
-# 37. Git File Lifecycle
-
-A file in Git usually goes through:
-
-1. **Untracked**
-2. **Tracked**
-3. **Modified**
-4. **Staged**
-5. **Committed**
-
-Example:
-
-```bash
-touch app.js
-git status           # untracked
-git add app.js       # staged/tracked
-git commit -m "Add app file"
-# edit app.js
-git status           # modified
-git add app.js
-git commit -m "Update app logic"
-```
-
----
-
-# 38. Viewing Specific Commits
-
-## Show one commit
-
-```bash
-git show <commit-id>
-```
-
-Example:
-
-```bash
-git show a1b2c3d
-```
-
----
-
-# 39. Remove a File from Git but Keep Locally
-
-```bash
-git rm --cached .env
-git commit -m "Stop tracking env file"
-```
-
-Useful if you accidentally committed a sensitive file.
-
----
-
-# 40. Revert a Commit Safely
-
-If a bad commit is already pushed, safer than reset is:
-
-```bash
-git revert <commit-id>
-```
-
-This creates a new commit that undoes the bad one.
-
----
-
-# 41. Cherry-pick
-
-Take one specific commit from another branch.
-
-```bash
-git cherry-pick <commit-id>
-```
-
-Useful when you want only one fix, not full branch merge.
-
----
-
-# 42. Example: Daily Real Project Git Usage
-
-Suppose you are building a full-stack app.
-
-## Morning
-
-```bash
-git pull
-git switch -c feature-profile-page
-```
-
-## Work and save
-
-```bash
-git add .
-git commit -m "Create profile page layout"
-```
-
-## More progress
-
-```bash
-git add .
-git commit -m "Add profile image upload logic"
-```
-
-## Push
-
-```bash
-git push -u origin feature-profile-page
-```
-
-## After review
-
-```bash
-git switch main
-git pull
-git merge feature-profile-page
-git push
-```
-
-That is very close to real development.
-
----
-
-# 43. Real Mini Project Example with Actual Files
-
-Let’s imagine a simple to-do app.
-
-## Files
-
-```text
-todo-app/
-  index.html
-  style.css
-  app.js
-  .gitignore
-```
-
-## Step 1: initialize
-
-```bash
-mkdir todo-app
-cd todo-app
-git init
-touch index.html style.css app.js .gitignore
-```
-
-## Step 2: first commit
-
-```bash
-git add .
-git commit -m "Initialize todo app structure"
-```
-
-## Step 3: feature branch
-
-```bash
-git switch -c feature-add-task
-```
-
-### Add code in `app.js`
-
-```js
-const tasks = [];
-
-function addTask(task) {
-  tasks.push(task);
-  console.log("Task added:", task);
+# 33) Reusable Utility Classes
+
+```css
+.text-center {
+  text-align: center;
 }
 
-addTask("Learn Git");
-```
-
-Commit:
-
-```bash
-git add app.js
-git commit -m "Add task creation logic"
-```
-
-## Step 4: another branch for delete feature
-
-```bash
-git switch main
-git switch -c feature-delete-task
-```
-
-Code:
-
-```js
-const tasks = ["Learn Git", "Build app"];
-
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  console.log(tasks);
+.mt-20 {
+  margin-top: 20px;
 }
 
-deleteTask(0);
-```
-
-Commit:
-
-```bash
-git add app.js
-git commit -m "Add task deletion logic"
-```
-
-Now two branches changed same file differently. Merge may create conflict. This is a good real example of why Git matters.
-
----
-
-# 44. How to Solve Conflict in Real Project
-
-Suppose conflict in `app.js`.
-
-Final merged code may become:
-
-```js
-const tasks = [];
-
-function addTask(task) {
-  tasks.push(task);
-  console.log("Task added:", task);
-}
-
-function deleteTask(index) {
-  tasks.splice(index, 1);
-  console.log("Task deleted");
+.container {
+  width: min(1100px, 90%);
+  margin-inline: auto;
 }
 ```
 
-Then:
+These save time in big projects.
 
-```bash
-git add app.js
-git commit -m "Merge add and delete task features"
+---
+
+# 34) Best Practices
+
+## Do this
+
+* use meaningful class names
+* use external CSS
+* keep code organized
+* use `box-sizing: border-box`
+* make websites responsive
+* use variables for repeated colors/sizes
+* prefer class selectors over too many IDs
+* test on mobile and desktop
+
+## Avoid this
+
+* too much inline CSS
+* very deep selectors like:
+
+```css
+header nav ul li a span { ... }
+```
+
+* repeated code everywhere
+* fixed widths on everything
+* using only `px` for all sizing
+
+---
+
+# 35) Beginner to Advanced Learning Path
+
+A good order:
+
+1. syntax
+2. selectors
+3. colors and units
+4. text and fonts
+5. box model
+6. margin, padding, border
+7. display
+8. position
+9. flexbox
+10. grid
+11. responsive design
+12. pseudo-classes/elements
+13. transitions/transforms
+14. animations
+15. project building
+
+---
+
+# 36) One Full Mini Project
+
+Here is a small full project combining many concepts.
+
+## HTML
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Mini Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo">Brand</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Learn CSS by Building Projects</h1>
+      <p>Create responsive and modern websites from scratch.</p>
+      <a href="#" class="btn">Start Learning</a>
+    </div>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <h2>Flexbox</h2>
+      <p>Build 1D layouts easily and cleanly.</p>
+    </div>
+    <div class="card">
+      <h2>Grid</h2>
+      <p>Create advanced 2D responsive layouts.</p>
+    </div>
+    <div class="card">
+      <h2>Animation</h2>
+      <p>Add transitions and interactive effects.</p>
+    </div>
+  </section>
+
+</body>
+</html>
+```
+
+## CSS
+
+```css
+:root {
+  --primary: #2563eb;
+  --dark: #111827;
+  --light: #f9fafb;
+  --text: #374151;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: var(--light);
+}
+
+.navbar {
+  background: var(--dark);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #93c5fd;
+}
+
+.hero {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #2563eb, #7c3aed);
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  background: white;
+  color: var(--primary);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.cards {
+  width: min(1100px, 90%);
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card h2 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+This one project includes:
+
+* variables
+* reset
+* flexbox
+* grid
+* hover effects
+* transitions
+* responsive design
+* typography
+* spacing
+* colors
+
+---
+
+# 37) Most Important CSS Properties to Master First
+
+Focus on these first:
+
+* `color`
+* `background`
+* `font-size`
+* `font-family`
+* `width`
+* `height`
+* `margin`
+* `padding`
+* `border`
+* `display`
+* `position`
+* `flex`
+* `grid`
+* `gap`
+* `justify-content`
+* `align-items`
+* `media queries`
+* `transition`
+* `transform`
+
+---
+
+# 38) How CSS is used in real projects
+
+In real websites, CSS is used for:
+
+* navbar
+* hero section
+* cards
+* forms
+* modals
+* sidebars
+* dashboards
+* galleries
+* buttons
+* tables
+* responsive mobile design
+* animations
+* themes
+
+Real workflow:
+
+1. build HTML structure
+2. reset default browser styles
+3. define colors, spacing, fonts
+4. create layout with flexbox/grid
+5. style components
+6. add hover/focus states
+7. make responsive with media queries
+8. polish with transitions/animations
+
+---
+
+# 39) Common beginner mistakes
+
+## Mistake 1: forgetting `box-sizing`
+
+Fix:
+
+```css
+* {
+  box-sizing: border-box;
+}
+```
+
+## Mistake 2: using fixed width everywhere
+
+Bad:
+
+```css
+.container {
+  width: 1200px;
+}
+```
+
+Better:
+
+```css
+.container {
+  width: min(1100px, 90%);
+  margin: auto;
+}
+```
+
+## Mistake 3: not making mobile responsive
+
+Use media queries.
+
+## Mistake 4: overusing `position: absolute`
+
+Use flexbox and grid first.
+
+## Mistake 5: messy class names
+
+Use understandable names:
+
+```css
+.product-card
+.login-form
+.hero-title
 ```
 
 ---
 
-# 45. Essential Professional Commands
+# 40) Final advice
 
-```bash
-git status
-git log --oneline --graph --all
-git diff
-git stash
-git branch
-git switch
-git merge
-git rebase
-git fetch
-git pull
-git push
-git revert
-```
+To become strong in CSS:
 
-A very useful history command:
+* learn syntax and selectors
+* practice box model deeply
+* master flexbox and grid
+* build real small projects daily
+* make every project responsive
+* inspect websites in browser developer tools
+* recreate real website sections by yourself
 
-```bash
-git log --oneline --graph --decorate --all
-```
+The fastest learning method is:
 
-It shows branch structure visually.
+**learn one concept -> build one mini project with it**
 
----
+For example:
 
-# 46. Beginner-to-Advanced Learning Order
-
-You should learn Git in this order:
-
-## Level 1
-
-* `git init`
-* `git status`
-* `git add`
-* `git commit`
-* `git log`
-
-## Level 2
-
-* `.gitignore`
-* `git diff`
-* branches
-* `git merge`
-
-## Level 3
-
-* remote repo
-* `git clone`
-* `git push`
-* `git pull`
-* GitHub workflow
-
-## Level 4
-
-* `git stash`
-* `git reset`
-* `git revert`
-* `git rebase`
-* `git cherry-pick`
+* flexbox -> navbar
+* grid -> dashboard
+* form styling -> login page
+* transitions -> buttons/cards
+* media query -> responsive layout
 
 ---
 
-# 47. Best Practice Rules
-
-1. commit often
-2. write meaningful commit messages
-3. create a branch per feature
-4. do not commit secrets
-5. use `.gitignore`
-6. pull latest changes before starting
-7. check `git status` often
-8. review code with `git diff` before commit
-9. use `revert` for already pushed bad commits
-10. avoid force push unless you know exactly why
-
----
-
-# 48. Full Git Workflow Cheat Sheet
-
-## New project
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-```
-
-## Connect GitHub
-
-```bash
-git remote add origin <repo-url>
-git push -u origin main
-```
-
-## New feature
-
-```bash
-git switch -c feature-login
-git add .
-git commit -m "Add login page"
-git push -u origin feature-login
-```
-
-## Merge feature
-
-```bash
-git switch main
-git merge feature-login
-git push
-```
-
-## Update local repo
-
-```bash
-git pull
-```
-
-## Save unfinished work
-
-```bash
-git stash
-git stash pop
-```
-
-## Undo unstaged changes
-
-```bash
-git restore file.txt
-```
-
-## Undo last commit but keep changes
-
-```bash
-git reset --soft HEAD~1
-```
-
----
-
-# 49. One Complete End-to-End Example
-
-Let’s do the full flow in order.
-
-## Create app
-
-```bash
-mkdir shop-app
-cd shop-app
-git init
-touch index.html style.css app.js .gitignore
-```
-
-## First commit
-
-```bash
-git add .
-git commit -m "Initialize shop app"
-```
-
-## Add remote
-
-```bash
-git remote add origin https://github.com/username/shop-app.git
-git push -u origin main
-```
-
-## Start feature
-
-```bash
-git switch -c feature-product-list
-```
-
-Edit files, then:
-
-```bash
-git add .
-git commit -m "Add product list section"
-git push -u origin feature-product-list
-```
-
-## Start another feature later
-
-```bash
-git switch main
-git pull
-git switch -c feature-cart
-```
-
-Work:
-
-```bash
-git add .
-git commit -m "Add cart UI"
-git push -u origin feature-cart
-```
-
-## Merge first feature
-
-```bash
-git switch main
-git merge feature-product-list
-git push
-```
-
-## Merge second feature
-
-```bash
-git merge feature-cart
-git push
-```
-
-This is real project Git usage from start to finish.
-
----
-
-# 50. Final Summary
-
-Git helps you:
-
-* track code changes
-* work with confidence
-* collaborate with others
-* manage features using branches
-* recover from mistakes
-
-The most important beginner commands are:
-
-```bash
-git init
-git status
-git add .
-git commit -m "message"
-git log --oneline
-git branch
-git switch -c feature-name
-git merge feature-name
-git remote add origin <url>
-git push -u origin main
-git pull
-```
-
----
-
-# 51. Practice Project for You
-
-To master Git, build this:
-
-## Project idea
-
-A simple **portfolio website** or **todo app**
-
-Practice this exact flow:
-
-1. initialize repo
-2. first commit
-3. create `feature-navbar`
-4. commit navbar
-5. create `feature-contact`
-6. commit contact section
-7. merge both to main
-8. push to GitHub
-9. create a conflict intentionally and solve it
-10. use stash once
-11. use revert once
-
-That will teach you a lot.
-
-If you want, I can next give you a **Git commands handbook in table form** or a **full real project with Git + GitHub workflow step by step**.
+I can next give you a **complete CSS roadmap in 30 days with daily practice projects**, or a **chapter-by-chapter CSS notes PDF-style document** here in chat.
